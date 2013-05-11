@@ -382,6 +382,10 @@ public class Main {
 		textFps.setEnabled(b);
 	}
 
+	public Image getImage() {
+		return baseImage.getImage();
+	}
+
 	public void drawCircle() {
 		Image img;
 		try {
@@ -423,5 +427,9 @@ public class Main {
 		textCenterX.setText(String.valueOf(meta.getCircleX()));
 		textCenterY.setText(String.valueOf(meta.getCircleY()));
 		textRadius.setText(String.valueOf(meta.getCircleR()));
+	}
+
+	public String getTitle() {
+		return frame.getTitle();
 	}
 }

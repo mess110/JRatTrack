@@ -45,12 +45,22 @@ public class RatTrack {
 			throws IOException {
 		BufferedImage bi = toBufferedImage(file);
 		ratFilter(bi);
+		IntegralImage ii = new IntegralImage(bi);
+
 		ResultSet<PossibleRat> resultSet = new ResultSet<PossibleRat>(2);
+		boolean bruteForce = false;
 		for (int x = 0; x < bi.getWidth(); x += getMeta().getRatSize()) {
 			for (int y = 0; y < bi.getHeight(); y += getMeta().getRatSize()) {
-				resultSet.push(new PossibleRat(String.valueOf(Util
-						.getTimestampName(file)), x, y, meta.getRatSize(), sum(
-						bi, x, y)));
+				float sum = 0;
+				if (bruteForce) {
+					sum = sum(bi, x, y);
+				} else {
+					sum = ii.getIntegralSum(x, y, getMeta().getRatSize());
+				}
+				resultSet
+						.push(new PossibleRat(String.valueOf(Util
+								.getTimestampName(file)), x, y, meta
+								.getRatSize(), sum));
 			}
 		}
 		meta.addResultSet(resultSet);
@@ -62,7 +72,7 @@ public class RatTrack {
 		}
 	}
 
-	public int sumSum(File file, int x, int y) {
+	public int printSum(File file, int x, int y) {
 		try {
 			BufferedImage bi = toBufferedImage(file);
 			ratFilter(bi);
