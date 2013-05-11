@@ -105,7 +105,7 @@ public class Main {
 					File file = fileChooser.getSelectedFile();
 					frame.setTitle(file.getPath());
 					// user loaded a avi file
-					if (file.getPath().endsWith("avi")) {
+					if (file.getPath().toLowerCase().endsWith("avi")) {
 						setCoordinatesEnabled(false);
 						setMetaFpsEnabled(true);
 					} else if (file.isDirectory() && isRatTrackDirectory(file)) {
